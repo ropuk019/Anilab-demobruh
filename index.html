@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AniLab Clone</title>
+  <style>
+    :root {
+      --primary: #2e3440;
+      --accent: #88c0d0;
+      --bg: #3b4252;
+      --text: #eceff4;
+      --card-bg: #4c566a;
+      --hover: #5e81ac;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:var(--text); font-family:sans-serif; }
+    header { padding:20px; background:var(--primary); text-align:center; font-size:1.5rem; }
+    .search { padding:10px; text-align:center; }
+    .search input {
+      width:80%; padding:8px;
+      border:none; border-radius:4px;
+      font-size:1rem;
+    }
+    .carousel {
+      display:flex; overflow-x:auto; padding:20px;
+      gap:10px;
+    }
+    .carousel img {
+      width:200px; height:120px;
+      object-fit:cover;
+      border-radius:8px;
+      flex-shrink:0;
+      transition:transform .3s;
+    }
+    .carousel img:hover { transform:scale(1.05); }
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+      gap:15px; padding:20px;
+    }
+    .card {
+      background:var(--card-bg);
+      border-radius:8px;
+      overflow:hidden;
+      transition:background .3s;
+    }
+    .card img {
+      width:100%; height:240px;
+      object-fit:cover;
+    }
+    .card:hover { background:var(--hover); }
+    .card .info {
+      padding:10px;
+      font-size:0.9rem;
+    }
+    .bottom-bar {
+      position:fixed;
+      bottom:0; left:0; right:0;
+      background:var(--primary);
+      display:flex; justify-content:space-around;
+      padding:10px 0;
+      border-top:2px solid var(--accent);
+    }
+    .bottom-bar button {
+      background:none; border:none;
+      color:var(--text);
+      font-size:1rem;
+      display:flex; flex-direction:column;
+      align-items:center;
+      cursor:pointer;
+      transition:color .2s;
+    }
+    .bottom-bar button:hover {
+      color:var(--accent);
+    }
+    .bottom-bar button i {
+      font-size:1.4rem; margin-bottom:4px;
+    }
+  </style>
+  <!-- Icon font (Font Awesome) for bottom bar icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <header>AniLab Clone</header>
+
+  <div class="search">
+    <input type="text" id="search" placeholder="Search anime...">
+  </div>
+
+  <section>
+    <h2 style="padding:0 20px;">Featured</h2>
+    <div class="carousel" id="featured">
+      <!-- Placeholder images from Google -->
+      <img src="https://via.placeholder.com/200x120?text=Anime+1" alt="Anime 1">
+      <img src="https://via.placeholder.com/200x120?text=Anime+2" alt="Anime 2">
+      <img src="https://via.placeholder.com/200x120?text=Anime+3" alt="Anime 3">
+      <img src="https://via.placeholder.com/200x120?text=Anime+4" alt="Anime 4">
+    </div>
+  </section>
+
+  <section>
+    <h2 style="padding:0 20px;">Latest Releases</h2>
+    <div class="grid" id="animeGrid">
+      <!-- Example animated grid cards -->
+      <div class="card" data-title="Naruto">
+        <img src="https://via.placeholder.com/180x240?text=Naruto" alt="Naruto">
+        <div class="info"><strong>Naruto</strong></div>
+      </div>
+      <div class="card" data-title="One Piece">
+        <img src="https://via.placeholder.com/180x240?text=One+Piece" alt="One Piece">
+        <div class="info"><strong>One Piece</strong></div>
+      </div>
+      <div class="card" data-title="My Hero">
+        <img src="https://via.placeholder.com/180x240?text=My+Hero" alt="My Hero">
+        <div class="info"><strong>My Hero</strong></div>
+      </div>
+      <div class="card" data-title="Demon Slayer">
+        <img src="https://via.placeholder.com/180x240?text=Demon+Slayer" alt="Demon Slayer">
+        <div class="info"><strong>Demon Slayer</strong></div>
+      </div>
+      <!-- more cards... -->
+    </div>
+  </section>
+
+  <div class="bottom-bar">
+    <button id="homeBtn"><i class="fa fa-home"></i>Home</button>
+    <button id="searchBtn"><i class="fa fa-search"></i>Search</button>
+    <button id="categoriesBtn"><i class="fa fa-list"></i>Categories</button>
+    <button id="favoritesBtn"><i class="fa fa-heart"></i>Favorites</button>
+    <button id="profileBtn"><i class="fa fa-user"></i>Profile</button>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById('search');
+    const grid = document.getElementById('animeGrid');
+    const cards = grid.getElementsByClassName('card');
+
+    searchInput.addEventListener('input', () => {
+      const term = searchInput.value.toLowerCase();
+      Array.from(cards).forEach(card => {
+        const title = card.dataset.title.toLowerCase();
+        card.style.display = title.includes(term) ? '' : 'none';
+      });
+    });
+
+    // Example bottom-bar button clicks
+    document.getElementById('categoriesBtn').onclick = () => alert('Open categories...');
+    document.getElementById('favoritesBtn').onclick = () => alert('Open favorites...');
+    document.getElementById('profileBtn').onclick = () => alert('Open user profile...');
+    document.getElementById('homeBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('searchBtn').onclick = () => searchInput.focus();
+  </script>
+
+</body>
+</html>
